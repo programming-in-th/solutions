@@ -1,4 +1,4 @@
-# Pacman and Ghost
+
 
 กรณีที่ไม่มีผีตัวใดที่สามารถเดินไปหา Pacman ได้เลย เราจะชนะเสมอ
 
@@ -17,11 +17,9 @@ Time-complexity: $\mathcal{O}(R*C)$
 while(!q.empty()) {
   int x, y;
   auto[x, y] = q.front(); q.pop();
-    
   for(int d = 0; d < 4; d++) {
     int xx = x + dx[d], yy = y + dy[d];
     if(!valid(xx,yy)) continue;
-    
     if(pacman[xx][yy] == inf && pacman[x][y] + 1 < ghost[xx][yy]) {
       pacman[xx][yy] = pacman[x][y] + 1;
       q.push({xx, yy});
