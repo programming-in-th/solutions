@@ -4,7 +4,7 @@
 สามารถทำ dynamic programming ที่เมื่อถึงสถานีที่ $i$ ใดๆจะได้ $dp(i)$ คือ $min(dp(j))$ ที่$i-k<=j$ และ $j>0$ บวกกับค่า สถานีที่ $i$ โดย $min(dp(j))$ สามารถหาได้จากการไล่หาในทุกๆ $j$ ที่สอดคล้อง 
 Time complexity $O(NK)$
 #### subtask 2 ( 40 คะแนน )
-สามารถoptimizeการหาค่าที่น้อยที่สุดได้ด้วยการใช้เทคนิค **sliding window** จะสามารถลด Time complexity ลงได้เหลือเพียง $O(N)$
+สามารถoptimizeการหาค่าที่น้อยที่สุดได้ด้วยการใช้เทคนิค **minimum sliding window** จะสามารถลด Time complexity ลงได้เหลือเพียง $O(N)$
 
 ```cpp
 #include <bits/stdc++.h>
