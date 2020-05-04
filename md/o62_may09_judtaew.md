@@ -51,7 +51,7 @@ for(int i = 1; i <= n; i++){
 
 สมมติเรามี state $(i,j,k)$ อยู่ (เมื่อ $i > j > k$) แล้วต้องการเติมตัวใหม่ล่าสุดเข้าไป แน่นอนว่าจะต้องเติม $\max(i,j,k)$ ไปอย่างแน่นอน นั่นคือ เติม $i+1$ ไปแน่ๆ แต่จะเติมในแถวใด หากเติมในแถว $i$ state ใหม่จะเป็น $(i+1,j,k)$ หากเติมแถว $j$  state ใหม่จะเป็น $(i+1, i, k)$ และหากเติมแถว $k$ state ใหม่จะเป็น $(i+1, i, j)$ ดังภาพ
 
-![img](../media/o62_may09_judtaew/judtaew_states.png)
+![img](https://raw.githubusercontent.com/programming-in-th/solutions/master/media/o62_may09_judtaew/judtaew_states.png)
 
 เราสังเกตว่า states ที่มีสีเขียว คือ state ที่ต่อเติมจากแถวปัจจุบันแถวเดียวโดยตรง และ state สีฟ้า คือ state จบ (ไม่สามารถ update state อื่นๆได้อีกแล้ว)
 
@@ -92,11 +92,11 @@ if(singlestack) ans += 3; // Check if [1,2,3, ... N][null][null] config is possi
 
 เมื่อต้องการเพิ่มค่าในตารางดังภาพ
 
-![judtaew_fenwick](../media/o62_may09_judtaew/judtaew_fenwick.png)
+![judtaew_fenwick](https://raw.githubusercontent.com/programming-in-th/solutions/master/media/o62_may09_judtaew/judtaew_fenwick.png)
 
 เราจะแยกเป็น คำสั่ง 2 ค่า ดังภาพด้านล่าง
 
-![judtaew_config](../media/o62_may09_judtaew/judtaew_config.png)
+![judtaew_config](https://raw.githubusercontent.com/programming-in-th/solutions/master/media/o62_may09_judtaew/judtaew_config.png)
 
 โดยในคำสั่งด้านบนเราสามารถสั่งเพิ่มค่าใน *Fenwick Tree* ได้เลย (เพิ่มช่องที่ 3 และ ลดช่องที่ 7 ออก) ส่วนคำสั่งด้านล่างนั้น สามารถเก็บเอาไว้ก่อนแล้วค่อยมาทำได้ (ใช้ Priority Queue เพื่อ maintain คำสั่งดังกล่าว)
 
