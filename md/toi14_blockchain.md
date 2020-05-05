@@ -129,3 +129,4 @@ int main(int argc, char const *argv[])
 }
 
 ```
+Time Complexity : $\mathcal{O}{((t+q)(N+NlogN))}$
