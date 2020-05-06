@@ -49,7 +49,7 @@
 Solution Code in C++ Language
 
 ```cpp
-#include "bits/stdc++.h"
+#include <bits/stdc++.h>
 using namespace std;
 int num[100010];
 pair<int, int> adj[100010];
