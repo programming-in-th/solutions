@@ -68,4 +68,4 @@ int main() {
   }
 }
 ```
-Time Complexity : $\mathcal{O}{(qlogn)}$
+Time Complexity : $\mathcal{O}{(q\logn)}$
