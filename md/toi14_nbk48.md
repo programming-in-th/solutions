@@ -51,9 +51,8 @@ Solution Code in C++ Language
 ```cpp
 #include "bits/stdc++.h"
 using namespace std;
-#define ii pair<int, int>
 int num[100010];
-ii adj[100010];
+pair<int, int> adj[100010];
 int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
