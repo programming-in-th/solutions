@@ -12,15 +12,15 @@
 
 ```cpp
 int cats[2000005]; // Let cats' indices be 1-based
-int N; // Let N be the number of cats
+int N;             // Let N be the number of cats
 bool ok = true;
-for(int i = 1; i <= N; i += 2){
-    if(cats[i] == cats[i+1]){
-        // Perfectly OK
-    }else{
-        ok = false;
-        break;
-    }
+for (int i = 1; i <= N; i += 2) {
+  if (cats[i] == cats[i + 1]) {
+    // Perfectly OK
+  } else {
+    ok = false;
+    break;
+  }
 }
 // ok is now the status of cats array
 ```
