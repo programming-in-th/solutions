@@ -25,75 +25,77 @@
 ตัวอย่างโค้ดการ *Breadth-first search* บนตาราง แบบปกติ
 
 ```cpp
-int dist[2048][2048]; // dist[i][j] := distance between the current robot and point (row i, col j)
-queue<pair<int,int> > q; // BFS Queue
-int x, y; // Assume the current robot is at row x, col y
-int N, M; // Assume there are N rows and M columns
-for(int i = 1; i <= N; i++){
-    for(int j = 1; j <= M; j++){
-        dist[i][j] = 1e9; // High enough for infinity
-    }
+int dist[2048][2048];    // dist[i][j] := distance between the current robot and
+                         // point (row i, col j)
+queue<pair<int, int>> q; // BFS Queue
+int x, y;                // Assume the current robot is at row x, col y
+int N, M;                // Assume there are N rows and M columns
+for (int i = 1; i <= N; i++) {
+  for (int j = 1; j <= M; j++) {
+    dist[i][j] = 1e9; // High enough for infinity
+  }
 }
-dist[x][y] = 0; // Starts at zero
-q.emplace(x,y); // Add current position to queue
-while(!q.empty()){
-    tie(x, y) = q.front(); // Let x and y be the current coordinate in the queue
-    q.pop();
-    if(x > 1 && dist[x-1][y] > dist[x][y]+1){
-        dist[x-1][y] = dist[x][y]+1;
-        q.emplace(x-1, y);
-    }
-    if(x < N && dist[x+1][y] > dist[x][y]+1){
-        dist[x+1][y] = dist[x][y]+1;
-        q.emplace(x+1, y);
-    }
-    if(y > 1 && dist[x][y-1] > dist[x][y]+1){
-        dist[x][y-1] = dist[x][y]+1;
-        q.emplace(x, y-1);
-    }
-    if(y < M && dist[x][y+1] > dist[x][y]+1){
-        dist[x][y+1] = dist[x][y]+1;
-        q.emplace(x, y+1);
-    }
+dist[x][y] = 0;  // Starts at zero
+q.emplace(x, y); // Add current position to queue
+while (!q.empty()) {
+  tie(x, y) = q.front(); // Let x and y be the current coordinate in the queue
+  q.pop();
+  if (x > 1 && dist[x - 1][y] > dist[x][y] + 1) {
+    dist[x - 1][y] = dist[x][y] + 1;
+    q.emplace(x - 1, y);
+  }
+  if (x < N && dist[x + 1][y] > dist[x][y] + 1) {
+    dist[x + 1][y] = dist[x][y] + 1;
+    q.emplace(x + 1, y);
+  }
+  if (y > 1 && dist[x][y - 1] > dist[x][y] + 1) {
+    dist[x][y - 1] = dist[x][y] + 1;
+    q.emplace(x, y - 1);
+  }
+  if (y < M && dist[x][y + 1] > dist[x][y] + 1) {
+    dist[x][y + 1] = dist[x][y] + 1;
+    q.emplace(x, y + 1);
+  }
 }
 ```
 
 การกระทำข้างต้นใช้เวลา $\mathcal{O}(NM)$ และเราจะต้องกระทำซ้ำทั้งหมด $K$ รอบ ตามจำนวนหุ่นยนต์ เพื่อหาระยะทางทั้งหมด ต่อมาจะเป็นขั้นตอนการเริ่มต้น **พร้อมกันทุกจุด** ดังนี้
 
 ```cpp
-int dist[2048][2048]; // dist[i][j] := distance between the current robot and point (row i, col j)
+int dist[2048][2048]; // dist[i][j] := distance between the current robot and
+                      // point (row i, col j)
 char mp[2048][2048];
-queue<pair<int,int> > q; // BFS Queue
-int N, M; // Assume there are N rows and M columns
-for(int i = 1; i <= N; i++){
-    for(int j = 1; j <= M; j++){
-        if(mp[i][j] == 'X'){
-            dist[i][j] = 0; // Starts at zero
-            q.emplace(i,j); // Add current position to queue
-        }else{
-            dist[i][j] = 1e9; // High enough for infinity
-        }
+queue<pair<int, int>> q; // BFS Queue
+int N, M;                // Assume there are N rows and M columns
+for (int i = 1; i <= N; i++) {
+  for (int j = 1; j <= M; j++) {
+    if (mp[i][j] == 'X') {
+      dist[i][j] = 0;  // Starts at zero
+      q.emplace(i, j); // Add current position to queue
+    } else {
+      dist[i][j] = 1e9; // High enough for infinity
     }
+  }
 }
-while(!q.empty()){
-    tie(x, y) = q.front(); // Let x and y be the current coordinate in the queue
-    q.pop();
-    if(x > 1 && dist[x-1][y] > dist[x][y]+1){
-        dist[x-1][y] = dist[x][y]+1;
-        q.emplace(x-1, y);
-    }
-    if(x < N && dist[x+1][y] > dist[x][y]+1){
-        dist[x+1][y] = dist[x][y]+1;
-        q.emplace(x+1, y);
-    }
-    if(y > 1 && dist[x][y-1] > dist[x][y]+1){
-        dist[x][y-1] = dist[x][y]+1;
-        q.emplace(x, y-1);
-    }
-    if(y < M && dist[x][y+1] > dist[x][y]+1){
-        dist[x][y+1] = dist[x][y]+1;
-        q.emplace(x, y+1);
-    }
+while (!q.empty()) {
+  tie(x, y) = q.front(); // Let x and y be the current coordinate in the queue
+  q.pop();
+  if (x > 1 && dist[x - 1][y] > dist[x][y] + 1) {
+    dist[x - 1][y] = dist[x][y] + 1;
+    q.emplace(x - 1, y);
+  }
+  if (x < N && dist[x + 1][y] > dist[x][y] + 1) {
+    dist[x + 1][y] = dist[x][y] + 1;
+    q.emplace(x + 1, y);
+  }
+  if (y > 1 && dist[x][y - 1] > dist[x][y] + 1) {
+    dist[x][y - 1] = dist[x][y] + 1;
+    q.emplace(x, y - 1);
+  }
+  if (y < M && dist[x][y + 1] > dist[x][y] + 1) {
+    dist[x][y + 1] = dist[x][y] + 1;
+    q.emplace(x, y + 1);
+  }
 }
 ```
 

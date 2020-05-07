@@ -7,76 +7,84 @@
 เราจะทำได้ในเวลา $\mathcal{O}(WH + N \log N + \sum\limits_{i=1}^{N}{h_i})$ โค้ดตัวอย่างดังต่อไปนี้
 
 ```cpp
-int N, T; // Defined in problem statement
-vector<tuple<int,int,int> > eventPoints; // (x, h, o) as defined above
-for(int i = 0; i < N; i++){
-    int s,h,w,o; // s, h, w, o as defined in problem statement
-    eventPoints.push_back({s, h, o});
-    eventPoints.push_back({s+w, h, -o});
+int N, T;                                 // Defined in problem statement
+vector<tuple<int, int, int>> eventPoints; // (x, h, o) as defined above
+for (int i = 0; i < N; i++) {
+  int s, h, w, o; // s, h, w, o as defined in problem statement
+  eventPoints.push_back({s, h, o});
+  eventPoints.push_back({s + w, h, -o});
 }
 sort(eventPoints.begin(), eventPoints.end());
 
 int answer = 0;
-int currentColumn[1048576]; // currentColumn[i] := val at height i on the current col
+int currentColumn[1048576]; // currentColumn[i] := val at height i on the
+                            // current col
 int eventPtr = 0;
-for(int i = 1; i <= 4000000; i++){
-    if(eventPtr < eventPoints.size()){
-        int x, h, o;
-        tie(x, h, o) = eventPoints[eventPtr];
-        while(x == i){
-            // While there are some eventPoints which belong to current x, process them.
-            for(int j = 1; j <= h; j++) currentColumn[j] += o;
-            eventPtr++;
-            tie(x, h, o) = eventPoints[eventPtr];
-        }
+for (int i = 1; i <= 4000000; i++) {
+  if (eventPtr < eventPoints.size()) {
+    int x, h, o;
+    tie(x, h, o) = eventPoints[eventPtr];
+    while (x == i) {
+      // While there are some eventPoints which belong to current x, process
+      // them.
+      for (int j = 1; j <= h; j++)
+        currentColumn[j] += o;
+      eventPtr++;
+      tie(x, h, o) = eventPoints[eventPtr];
     }
-    for(int j = 1; j <= 1000000; j++){
-        if(currentColumn[j] == T){ // Expected value
-            answer++;
-        }
+  }
+  for (int j = 1; j <= 1000000; j++) {
+    if (currentColumn[j] == T) { // Expected value
+      answer++;
     }
+  }
 }
 ```
 
 ต่อมา เราสังเกตว่าไม่จำเป็นจะต้องไล่ $x$ ให้ครบทุกค่าจาก $1$ ถึง $4,000,000$ โดยเราสามารถไล่เฉพาะค่าที่มีอยู่ใน `eventPoints` ได้ สมมติคอลัมน์ $x = X_1$ มีค่าที่ตรงตามเงื่อนไข (เท่ากับ $T$) อยู่ทั้งหมด $V$ ค่า เราก็สามารถมั่นใจได้ว่า ระหว่าง $x = X_1$ ไปจนถึง $x = X_2$ นั้น ค่าที่เท่ากับ $T$ ก็จะมีอยู่ $V$ ค่าเช่นเดิม ($X_1$ แทนคอลัมน์ที่มี event point ใดๆ และ $X_2$ แทนคอลัมน์ที่มี event point ที่อยู่ถัดจาก $X_1$) เราจะสามารถดัดแปลงได้ดังนี้
 
 ```cpp
-int N, T; // Defined in problem statement
-vector<tuple<int,int,int> > eventPoints; // (x, h, o) as defined above
-vector<int> possibleXs; // Maintain a set of columns with at least one event point
-for(int i = 0; i < N; i++){
-    int s,h,w,o; // s, h, w, o as defined in problem statement
-    eventPoints.push_back({s, h, o});
-    eventPoints.push_back({s+w, h, -o});
-	possibleXs.push_back(s);
-    possibleXs.push_back(s+w);
+int N, T;                                 // Defined in problem statement
+vector<tuple<int, int, int>> eventPoints; // (x, h, o) as defined above
+vector<int>
+    possibleXs; // Maintain a set of columns with at least one event point
+for (int i = 0; i < N; i++) {
+  int s, h, w, o; // s, h, w, o as defined in problem statement
+  eventPoints.push_back({s, h, o});
+  eventPoints.push_back({s + w, h, -o});
+  possibleXs.push_back(s);
+  possibleXs.push_back(s + w);
 }
 sort(eventPoints.begin(), eventPoints.end());
 sort(possibleXs.begin(), possibleXs.end());
-possibleXs.resize(unique(possibleXs.begin(), possibleXs.end()) - possibleXs.begin());
+possibleXs.resize(unique(possibleXs.begin(), possibleXs.end()) -
+                  possibleXs.begin());
 // Sort and resolve distinct column positions
 
 int answer = 0;
-int currentColumn[1048576]; // currentColumn[i] := val at height i on the current col
+int currentColumn[1048576]; // currentColumn[i] := val at height i on the
+                            // current col
 int eventPtr = 0;
 int lastPos = 0;
-for(int i : possibleXs){
-    for(int j = 1; j <= 1000000; j++){
-        if(currentColumn[j] == T){ // Expected value
-            answer += i-lastPos;
-        }
+for (int i : possibleXs) {
+  for (int j = 1; j <= 1000000; j++) {
+    if (currentColumn[j] == T) { // Expected value
+      answer += i - lastPos;
     }
-    lastPos = i;
-    if(eventPtr < eventPoints.size()){
-        int x, h, o;
-        tie(x, h, o) = eventPoints[eventPtr];
-        while(x == i){
-            // While there are some eventPoints which belong to current x, process them.
-            for(int j = 1; j <= h; j++) currentColumn[j] += o;
-            eventPtr++;
-            tie(x, h, o) = eventPoints[eventPtr];
-        }
+  }
+  lastPos = i;
+  if (eventPtr < eventPoints.size()) {
+    int x, h, o;
+    tie(x, h, o) = eventPoints[eventPtr];
+    while (x == i) {
+      // While there are some eventPoints which belong to current x, process
+      // them.
+      for (int j = 1; j <= h; j++)
+        currentColumn[j] += o;
+      eventPtr++;
+      tie(x, h, o) = eventPoints[eventPtr];
     }
+  }
 }
 ```
 
@@ -88,8 +96,9 @@ for(int i : possibleXs){
 
 ```cpp
 int value[1048576];
-void add(int idx, int amt){
-    for(int i = idx; i <= H; i++) value[i] += amt;
+void add(int idx, int amt) {
+  for (int i = idx; i <= H; i++)
+    value[i] += amt;
 }
 ```
 
@@ -97,12 +106,12 @@ void add(int idx, int amt){
 
 ```cpp
 int value[1048576];
-int sum(int idx){
-    int ret = 0;
-    for(int i = idx; i >= 1; i--){
-        ret += value[i];
-    }
-    return ret;
+int sum(int idx) {
+  int ret = 0;
+  for (int i = idx; i >= 1; i--) {
+    ret += value[i];
+  }
+  return ret;
 }
 ```
 
@@ -111,23 +120,24 @@ int sum(int idx){
 จากโค้ดข้างต้นเราจะเปลี่ยนจาก
 
 ```cpp
-while(x == i){
-    // While there are some eventPoints which belong to current x, process them.
-    for(int j = 1; j <= h; j++) currentColumn[j] += o;
-    eventPtr++;
-    tie(x, h, o) = eventPoints[eventPtr];
+while (x == i) {
+  // While there are some eventPoints which belong to current x, process them.
+  for (int j = 1; j <= h; j++)
+    currentColumn[j] += o;
+  eventPtr++;
+  tie(x, h, o) = eventPoints[eventPtr];
 }
 ```
 
 เป็น
 
 ```cpp
-while(x == i){
-    // While there are some eventPoints which belong to current x, process them.
-    add(1, o); // processed by the Fenwick Tree
-    add(j+1, -o); // processed by the Fenwick Tree
-    eventPtr++;
-    tie(x, h, o) = eventPoints[eventPtr];
+while (x == i) {
+  // While there are some eventPoints which belong to current x, process them.
+  add(1, o);      // processed by the Fenwick Tree
+  add(j + 1, -o); // processed by the Fenwick Tree
+  eventPtr++;
+  tie(x, h, o) = eventPoints[eventPtr];
 }
 ```
 
@@ -136,20 +146,20 @@ while(x == i){
 โค้ดตัวอย่างแก้ไขจาก
 
 ```cpp
-for(int j = 1; j <= 1000000; j++){
-    if(currentColumn[j] == T){ // Expected value
-        answer += i-lastPos;
-    }
+for (int j = 1; j <= 1000000; j++) {
+  if (currentColumn[j] == T) { // Expected value
+    answer += i - lastPos;
+  }
 }
 ```
 
 เป็นดังนี้
 
 ```cpp
-int rlow = binarySearchLessEqual(T); // Implement Binary Search
-int rhigh = binarySearchMoreEqual(T); // Implement Binary Search
-if(sum(rlow) == T && sum(rhigh) == T){ // Recheck in case there is no T found
-    answer += (rhigh - rlow + 1) * (i - lastPos);
+int rlow = binarySearchLessEqual(T);     // Implement Binary Search
+int rhigh = binarySearchMoreEqual(T);    // Implement Binary Search
+if (sum(rlow) == T && sum(rhigh) == T) { // Recheck in case there is no T found
+  answer += (rhigh - rlow + 1) * (i - lastPos);
 }
 ```
 

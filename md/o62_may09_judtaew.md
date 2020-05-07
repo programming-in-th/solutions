@@ -4,27 +4,30 @@
 
 ```cpp
 dp[0][0][0] = 1; // Initial state
-for(int i = 0; i < n; i++){
-    for(int j = 0; j < n; j++){
-        for(int k = 0; k < n; k++){
-            // Consider (i,j,k) to be the head of current config.
-            // The next person to be configure is max(i,j,k)+1.
-            int nxt = max(i,j,k)+1;
-            // Check all possible configs after adding nxt to the lines
-            // (i.e. determine if nxt can be after i, j, k or not)
-            if(i == 0 || abs(h[nxt] - h[i]) <= lim) dp[nxt][j][k] += dp[i][j][k];
-            if(j == 0 || abs(h[nxt] - h[j]) <= lim) dp[i][nxt][k] += dp[i][j][k];
-            if(k == 0 || abs(h[nxt] - h[k]) <= lim) dp[i][j][nxt] += dp[i][j][k];
-        }
+for (int i = 0; i < n; i++) {
+  for (int j = 0; j < n; j++) {
+    for (int k = 0; k < n; k++) {
+      // Consider (i,j,k) to be the head of current config.
+      // The next person to be configure is max(i,j,k)+1.
+      int nxt = max(i, j, k) + 1;
+      // Check all possible configs after adding nxt to the lines
+      // (i.e. determine if nxt can be after i, j, k or not)
+      if (i == 0 || abs(h[nxt] - h[i]) <= lim)
+        dp[nxt][j][k] += dp[i][j][k];
+      if (j == 0 || abs(h[nxt] - h[j]) <= lim)
+        dp[i][nxt][k] += dp[i][j][k];
+      if (k == 0 || abs(h[nxt] - h[k]) <= lim)
+        dp[i][j][nxt] += dp[i][j][k];
     }
+  }
 }
 int ans = 0;
-for(int i = 0; i < n; i++){
-    for(int j = 0; j < n; j++){
-        ans += dp[n][i][j];
-        ans += dp[i][n][j];
-        ans += dp[i][j][n];
-    }
+for (int i = 0; i < n; i++) {
+  for (int j = 0; j < n; j++) {
+    ans += dp[n][i][j];
+    ans += dp[i][n][j];
+    ans += dp[i][j][n];
+  }
 }
 ```
 
@@ -33,15 +36,15 @@ for(int i = 0; i < n; i++){
 ทั้งนี้ เราสามารถอาศัยหลักการที่ว่า state ที่เก็บมันซ้ำกันมาก จนสามารถลดลงได้เหลือเพียงเก็บเฉพาะ $i, j, k$ ที่ $i \geq j \geq k$ (เรารู้ว่าไม่ว่าสลับแถวอย่างไรก็ได้ค่าเท่ากัน) แล้วสุดท้ายเราก็สามารถหาคำตอบได้จากการเรียง $i, j, k$ แล้วคูณด้วย $6$ อยู่ดี จะใช้ memory ลดลงจาก $4N^3$ ไบต์เหลือเพียง $\frac{4N(N-1)(N-2)}{6}$ ไบต์เท่านั้น โดยเราสามารถประกาศอาเรย์หลายมิติ ที่มิติหลังแปรไปตามมิติหน้าได้ ด้วยเทคนิคดังนี้
 
 ```cpp
-int** dp[512]; // dp[i] is a pointer that is pointing to a pointer
-for(int i = 1; i <= n; i++){
-    dp[i] = new int*[i]; // dp[i] should be a 2D array of i rows
-    for(int j = 0; j < i; j++){
-        dp[i][j] = new int[j]; // and row j should have j columns
-        for(int k = 0; k < j; k++){
-            dp[i][j][k] = 0; // set zero
-        }
+int **dp[512]; // dp[i] is a pointer that is pointing to a pointer
+for (int i = 1; i <= n; i++) {
+  dp[i] = new int *[i]; // dp[i] should be a 2D array of i rows
+  for (int j = 0; j < i; j++) {
+    dp[i][j] = new int[j]; // and row j should have j columns
+    for (int k = 0; k < j; k++) {
+      dp[i][j][k] = 0; // set zero
     }
+  }
 }
 ```
 
@@ -61,23 +64,27 @@ for(int i = 1; i <= n; i++){
 int opt[2505][2505];
 opt[1][0] = 1;
 int ans = 0;
-for(int j = 1; j < n; j++){
-    for(int k = 0; k < j; k++){
-        int i = j+1;
-        int tmp = opt[j][k]; // := dp[i+1][j][k]
-        for(int ex = i; ex <= n; ex++){
-            if(ex == n){
-                ans += tmp;
-            }else{
-                if(abs(h[ex+1] - h[j]) <= lim) opt[ex][k] += tmp;
-                if(k == 0 || abs(h[ex+1] - h[k]) <= lim) opt[ex][j] += tmp;
-            }
-            if(abs(h[ex+1] - h[ex]) > lim) break;
-        }
+for (int j = 1; j < n; j++) {
+  for (int k = 0; k < j; k++) {
+    int i = j + 1;
+    int tmp = opt[j][k]; // := dp[i+1][j][k]
+    for (int ex = i; ex <= n; ex++) {
+      if (ex == n) {
+        ans += tmp;
+      } else {
+        if (abs(h[ex + 1] - h[j]) <= lim)
+          opt[ex][k] += tmp;
+        if (k == 0 || abs(h[ex + 1] - h[k]) <= lim)
+          opt[ex][j] += tmp;
+      }
+      if (abs(h[ex + 1] - h[ex]) > lim)
+        break;
     }
+  }
 }
 ans *= 6;
-if(singlestack) ans += 3; // Check if [1,2,3, ... N][null][null] config is possible
+if (singlestack)
+  ans += 3; // Check if [1,2,3, ... N][null][null] config is possible
 ```
 
 ต่อมา สังเกตว่าเราจะพยายามส่ง `ex` ต่อไปเรื่อยๆจาก $i$ ไปจนกว่า จะถึง $N$ หรือ `abs(h[ex+1] - h[ex]) > lim` สมมติเราสามารถหาช่วงดังกล่าวได้ เรียกช่วงนั้นว่า $[i, R]$ เราจะได้ว่า สำหรับแต่ละ $ex$ ใน $[i, R]$ หากนำ $ex$ ต่อกับ `k` ได้ก็ให้ update `opt[ex][j]` และหากต่อกับ `j` ได้ก็ให้ update `opt[ex][k]` แต่เนื่องจากเงื่อนไขการต่อกันนั้น ขึ้นอยู่กับความสูง เมื่อมาถึงจุดนี้จะได้แนวคิดในความรู้สึกของการอัพเดตตารางเป็นช่วงสองมิติ ซึ่งเหมือนจะไม่ช่วยอะไร เราจึงต้องหาวิธีการปรับค่าที่ดีกว่านี้
@@ -107,57 +114,63 @@ if(singlestack) ans += 3; // Check if [1,2,3, ... N][null][null] config is possi
 ```cpp
 fenwickTree dp[2505];
 bool relayable[2505];
-class cleaner : public tuple<int,int,int,int,int>{
+class cleaner : public tuple<int, int, int, int, int> {
 public:
-    cleaner(int a, int b, int c, int d, int e) : tuple<int,int,int,int,int>(a,b,c,d,e) {}
-    friend bool operator<(cleaner x, cleaner y){
-        return get<4>(x) > get<4>(y);
-    }
+  cleaner(int a, int b, int c, int d, int e)
+      : tuple<int, int, int, int, int>(a, b, c, d, e) {}
+  friend bool operator<(cleaner x, cleaner y) { return get<4>(x) > get<4>(y); }
 };
 priority_queue<cleaner> pq;
-for(int i = 2; i <= n; i++){
-    relayable[i] = abs(h[i] - h[i-1]) <= k;
+for (int i = 2; i <= n; i++) {
+  relayable[i] = abs(h[i] - h[i - 1]) <= k;
 }
 int last = n;
-for(int i = n; i > 0; i--){
-    R[i] = last;
-    if(!relayable[i]) last = i-1;
+for (int i = n; i > 0; i--) {
+  R[i] = last;
+  if (!relayable[i])
+    last = i - 1;
 }
 int ans = 0;
-for(int j = 1; j < n; j++){
-    const int i = j+1;
-    if(singlestack){
-        dp[0].update(h[i],h[i],1); // Initial data
-        pq.emplace(0, h[i], h[i], MOD-1, i+1);
-        if(!relayable[i]) singlestack = false;
+for (int j = 1; j < n; j++) {
+  const int i = j + 1;
+  if (singlestack) {
+    dp[0].update(h[i], h[i], 1); // Initial data
+    pq.emplace(0, h[i], h[i], MOD - 1, i + 1);
+    if (!relayable[i])
+      singlestack = false;
+  }
+  while (!pq.empty() && get<4>(pq.top()) <= i) {
+    // The priority queue maintains the 'future minus' list (refer to above
+    // fig.)
+    dp[get<0>(pq.top())].update(get<1>(pq.top()), get<2>(pq.top()),
+                                get<3>(pq.top()));
+    pq.pop();
+  }
+  vector<int> buf;
+  // Get data of the current row
+  for (int l = 0; l < j; l++)
+    buf.push_back(dp[l].query(h[i]));
+  for (int l = 0; l < j; l++) {
+    int tmp = buf[l];
+    if (R[i] == n) {
+      ans += tmp;
     }
-    while(!pq.empty() && get<4>(pq.top()) <= i){
-        // The priority queue maintains the 'future minus' list (refer to above fig.)
-        dp[get<0>(pq.top())].update(get<1>(pq.top()), get<2>(pq.top()), get<3>(pq.top()));
-        pq.pop();
+    dp[l].update(h[j] - k, h[j] + k, tmp); // Range update on heights
+    int bound =
+        min(n, R[i] + 1); // If there must be 'future minus', maintain them
+    pq.emplace(l, h[j] - k, h[j] + k, MOD - tmp, bound + 1);
+    if (l == 0) {
+      dp[j].update(-1e9, 1e9, tmp);
+      pq.emplace(j, -1e9, 1e9, MOD - tmp, bound + 1);
+    } else {
+      dp[j].update(h[l] - k, h[l] + k, tmp);
+      pq.emplace(j, h[l] - k, h[l] + k, MOD - tmp, bound + 1);
     }
-    vector<int> buf;
-    // Get data of the current row
-    for(int l = 0; l < j; l++) buf.push_back(dp[l].query(h[i]));
-    for(int l = 0; l < j; l++){
-        int tmp = buf[l];
-        if(R[i] == n){
-            ans += tmp;
-        }
-        dp[l].update(h[j]-k, h[j]+k, tmp); // Range update on heights
-        int bound = min(n, R[i] + 1); // If there must be 'future minus', maintain them
-        pq.emplace(l,h[j]-k,h[j]+k,MOD-tmp, bound+1);
-        if(l == 0){
-            dp[j].update(-1e9, 1e9, tmp);
-            pq.emplace(j,-1e9,1e9,MOD-tmp,bound+1);
-        }else{
-            dp[j].update(h[l]-k, h[l]+k, tmp);
-            pq.emplace(j,h[l]-k,h[l]+k,MOD-tmp, bound+1);
-        }
-    }
+  }
 }
 ans *= 6;
-if(singlestack) ans += 3; // Check if [1,2,3, ... N][null][null] config is possible
+if (singlestack)
+  ans += 3; // Check if [1,2,3, ... N][null][null] config is possible
 ```
 
 โดยจะอาศัยฟังก์ชัน `update` และ `query` ซึ่งทำงานบน _Fenwick Tree_ ในเวลา $\mathcal{O}(\log N)$

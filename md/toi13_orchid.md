@@ -15,14 +15,14 @@
 ```cpp
 int dp[1000005];
 int A[1000005]; // Height of i-th orchid
-for(int i = 1; i <= N; i++){
-    int opt = 0; // In case there is no predecessor
-    for(int j = 1; j < i; j++){
-        if(A[j] <= A[i]){
-            opt = max(opt, dp[j]); // Update optimal value
-        }
+for (int i = 1; i <= N; i++) {
+  int opt = 0; // In case there is no predecessor
+  for (int j = 1; j < i; j++) {
+    if (A[j] <= A[i]) {
+      opt = max(opt, dp[j]); // Update optimal value
     }
-    dp[i] = opt+1;
+  }
+  dp[i] = opt + 1;
 }
 ```
 
@@ -82,19 +82,19 @@ $L$ = `[1, 2, 3, 5]`
 int L[1000005];
 int A[1000005]; // Height of i-th orchid
 int size = 0;
-for(int t = 1; t <= N; t++){
-    int x = A[t];
-    if(x >= L[size]){ // In case we can add x to the end of L.
-        L[size+1] = x;
-        size++;
-    }else{
-        for(int i = 1; i <= size; i++){
-            if(L[i] > x && (i == 1 || L[i-1] <= x)){
-                L[i] = x;
-                break;
-            }
-        }
+for (int t = 1; t <= N; t++) {
+  int x = A[t];
+  if (x >= L[size]) { // In case we can add x to the end of L.
+    L[size + 1] = x;
+    size++;
+  } else {
+    for (int i = 1; i <= size; i++) {
+      if (L[i] > x && (i == 1 || L[i - 1] <= x)) {
+        L[i] = x;
+        break;
+      }
     }
+  }
 }
 ```
 
@@ -106,22 +106,24 @@ for(int t = 1; t <= N; t++){
 int L[1000005];
 int A[1000005]; // Height of i-th orchid
 int size = 0;
-for(int t = 1; t <= N; t++){
-    int x = A[t];
-    if(x >= L[size]){ // In case we can add x to the end of L.
-        L[size+1] = x;
-        size++;
-    }else{
-        int lo = 1;
-        int hi = size;
-        int mid;
-        while(lo < hi){
-            mid = (lo + hi)/2;
-            if(x > L[mid]) hi = mid;
-            else lo = mid+1;
-        }
-        L[mid] = x;
+for (int t = 1; t <= N; t++) {
+  int x = A[t];
+  if (x >= L[size]) { // In case we can add x to the end of L.
+    L[size + 1] = x;
+    size++;
+  } else {
+    int lo = 1;
+    int hi = size;
+    int mid;
+    while (lo < hi) {
+      mid = (lo + hi) / 2;
+      if (x > L[mid])
+        hi = mid;
+      else
+        lo = mid + 1;
     }
+    L[mid] = x;
+  }
 }
 ```
 
@@ -132,11 +134,13 @@ for(int t = 1; t <= N; t++){
 ```cpp
 vector<int> L;
 int A[1000005];
-for(int t = 1; t <= N; t++){
-    int x = A[t];
-    auto it = upper_bound(L.begin(), L.end(), x);
-    if(it == L.end()) L.push_back(x);
-    else *it = x;
+for (int t = 1; t <= N; t++) {
+  int x = A[t];
+  auto it = upper_bound(L.begin(), L.end(), x);
+  if (it == L.end())
+    L.push_back(x);
+  else
+    *it = x;
 }
 ```
 

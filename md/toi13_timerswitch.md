@@ -5,9 +5,9 @@
 เราจะสร้างฟังก์ชัน $f$ นิยามโดย
 
 ```cpp
-void f(string& S){
-    S.push_back(S.front());
-    S.erase(S.begin());
+void f(string &S) {
+  S.push_back(S.front());
+  S.erase(S.begin());
 }
 ```
 
@@ -16,12 +16,12 @@ void f(string& S){
 ```cpp
 string S;
 string now = S;
-for(int rep = 1; rep <= N; rep++){
-    f(now);
-    if(now == S){
-        // Answer is rep.
-        break;
-    }
+for (int rep = 1; rep <= N; rep++) {
+  f(now);
+  if (now == S) {
+    // Answer is rep.
+    break;
+  }
 }
 ```
 
@@ -47,8 +47,9 @@ for(int rep = 1; rep <= N; rep++){
 ```cpp
 int N;
 vector<int> D;
-for(int i = 1; i <= N; i++){
-    if(N % i == 0) D.push_back(i);
+for (int i = 1; i <= N; i++) {
+  if (N % i == 0)
+    D.push_back(i);
 }
 ```
 
@@ -56,22 +57,22 @@ for(int i = 1; i <= N; i++){
 
 ```cpp
 string S;
-string SS = S+S;
-for(int factor : D){
-    bool ok = true;
-    for(int i = 0; i < N; i++){
-        if(SS[factor+i] == S[i]){
-            // Everything is OK
-        }else{
-            // Mismatch!
-            ok = false;
-            break;
-        }
+string SS = S + S;
+for (int factor : D) {
+  bool ok = true;
+  for (int i = 0; i < N; i++) {
+    if (SS[factor + i] == S[i]) {
+      // Everything is OK
+    } else {
+      // Mismatch!
+      ok = false;
+      break;
     }
-    if(ok){
-        // Answer is factor.
-        break;
-    }
+  }
+  if (ok) {
+    // Answer is factor.
+    break;
+  }
 }
 ```
 
@@ -91,43 +92,44 @@ for(int factor : D){
 
 ```cpp
 const int B = 53; // Select some random rolling hash base
-int h(string T){
-    int ret = 0;
-    for(int i = 0; i < T.size(); i++){
-        ret *= B; // Multiply by base
-        ret += T[i] - '0'; // Convert char '0','1' to integer 0, 1.
-        // Let ret overflow...
-    }
-    return ret;
+int h(string T) {
+  int ret = 0;
+  for (int i = 0; i < T.size(); i++) {
+    ret *= B;          // Multiply by base
+    ret += T[i] - '0'; // Convert char '0','1' to integer 0, 1.
+                       // Let ret overflow...
+  }
+  return ret;
 }
 string S;
-string SS = S+S;
+string SS = S + S;
 int N = S.size();
 const int target = h(S);
 int currentHash = target;
 int highestMultiplier = 1;
-for(int i = 0; i < N-1; i++) highestMultiplier *= B;
-for(int i = 0; i < N; i++){
-    currentHash -= (S[i] - '0') * highestMultiplier;
-    currentHash *= B;
-    currentHash += S[i] - '0';
-    if(currentHash == target){
-        // Answer should be i+1
-        // Recheck for assurance
-        bool correct = true;
-        for(int j = 0; j < N; j++){
-            if(SS[i+1+j] == S[j]){
-                // Still OK
-            }else{
-                correct = false;
-                break;
-            }
-        }
-        if(correct){
-            // Answer is exactly i+1
-        	break;
-        }
+for (int i = 0; i < N - 1; i++)
+  highestMultiplier *= B;
+for (int i = 0; i < N; i++) {
+  currentHash -= (S[i] - '0') * highestMultiplier;
+  currentHash *= B;
+  currentHash += S[i] - '0';
+  if (currentHash == target) {
+    // Answer should be i+1
+    // Recheck for assurance
+    bool correct = true;
+    for (int j = 0; j < N; j++) {
+      if (SS[i + 1 + j] == S[j]) {
+        // Still OK
+      } else {
+        correct = false;
+        break;
+      }
     }
+    if (correct) {
+      // Answer is exactly i+1
+      break;
+    }
+  }
 }
 ```
 
