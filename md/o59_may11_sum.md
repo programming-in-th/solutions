@@ -18,33 +18,31 @@ coord.resize(unique(coord.begin(), coord.end()) - coord.begin());
 ```
 การ update ค่านั้นหากนำค่าไปใส่ในช่องตรงๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity รวมเป็น $\mathcal{O}(N^2\log N)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล *fenwick tree* สามารถ optimize time complexity ทั้ง update และ query เป็น $\mathcal{O}(\log N)$ 
 ```cpp
-void update(int x, long k)
-{
-    for (int i = x; i < N; i += i & -i)
-        t[i] += k;
+void update(int x, long k) {
+  for (int i = x; i < N; i += i & -i)
+    t[i] += k;
 }
 
-long long query(int x, long ret = 0)
-{
-    for (int i = x; i; i -= i & -i)
-        ret += t[i];
-    return ret;
+long long query(int x, long ret = 0) {
+  for (int i = x; i; i -= i & -i)
+    ret += t[i];
+  return ret;
 }
 
-int F(int mid)
-{
-    long long now = 0;
-    memset(t, 0, sizeof t);
-    update(get(0), 1);
-    for (int i = 1; i <= n; i++) {
-        int pos = lower_bound(coord.begin(), coord.end(), pref[i] - mid) - coord.begin() + 1;
-        if (coord[pos - 1] > pref[i] - mid)
-            --pos;
-        if (pos)
-            now += query(pos);
-        update(get(pref[i]), 1);
-    }
-    return now;
+int F(int mid) {
+  long long now = 0;
+  memset(t, 0, sizeof t);
+  update(get(0), 1);
+  for (int i = 1; i <= n; i++) {
+    int pos = lower_bound(coord.begin(), coord.end(), pref[i] - mid) -
+              coord.begin() + 1;
+    if (coord[pos - 1] > pref[i] - mid)
+      --pos;
+    if (pos)
+      now += query(pos);
+    update(get(pref[i]), 1);
+  }
+  return now;
 }
 ```
 จากการใช้โครงสร้างข้อมูล fenwick tree เข้ามาช่วยสามารถลด time complexity รวมลงได้เหลือ $\mathcal{O}(N\log^2 N)$ 
