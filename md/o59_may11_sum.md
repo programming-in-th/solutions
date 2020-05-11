@@ -1,5 +1,5 @@
 ในข้อนี้หากเราพิจารณาค่า $m$ ใดๆ โดยมีฟังก์ชั่น $F(m)$ คือฟังก์ชั่่นแทน ความถี่ของ $m$ จะสังเกตุว่าที่ $m$ และ $m+1$ คู่อันดับ $S(i,j)$ ใดๆที่มีค่ามากกว่า $m+1$ นั้นย่อมมากกว่า $m$ ด้วยดังนั้น $F(m+1)$ นั้นไม่มากไปกว่า $F(m)$ และถ้ามีคู่อันดับใดๆที่ $S(i,j) = m$ แล้วจะทำให้ค่าของ $F(m)$ มีค่ามากกว่า $F(m+1)$ ดังนั้น $F(m+1) /leq F(m)$ เสมอ จากเหตุผลดังกล่าวจะได้ว่า ฟังก์ชั่น $F(m)$ เป็นฟังก์ชั่น *monotone* ดังนั้นการหาค่า $m$ ที่มากที่สุดที่เป็นคำตอบสามารถหาได้ด้วยการ *binary search* ค่า $m$ โดยตรง
-```cpp
+```cpp 
 while (l < r) {
   long long mid = (l + r + 1) >> 1;
   if (F(mid) >= k)
@@ -25,7 +25,6 @@ sort(coord.begin(), coord.end());
 coord.resize(unique(coord.begin(), coord.end()) - coord.begin());
 ```
 การ update ค่านั้นหากนำค่าไปใส่ในช่องตรงๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity รวมเป็น $\mathcal{O}(N^2logN)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล *fenwick tree* สามารถ optimize time complexity ทั้ง update และ query เป็น $\mathcal{O}(logN)$ 
-
 ```cpp
 int F(int mid) {
   long long now = 0;
@@ -43,5 +42,4 @@ int F(int mid) {
   return now;
 }
 ```
-
 จากการใช้โครงสร้างข้อมูล fenwick tree เข้ามาช่วยสามารถลด time complexity รวมลงได้เหลือ $\mathcal{O}(Nlog^2N)$ 
