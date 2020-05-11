@@ -11,7 +11,7 @@ while (l < r) {
 * $F(mid) >= k$ นั่นหมายความว่าคำตอบที่ต้องการนั้นมีค่ามากกว่าหรือเท่ากับ mid แน่นอน จึงเลื่อน *lower bound* คำตอบไปยัง mid
 * $F(mid) < k$ นั่นหมายความว่าคำตอบที่ต้องการนั้นน้อยกว่า mid แน่นอน จึงเลื่อน *upper bound* ไปยัง mid-1 
 
-**วิธีในการคำนวน $F(m)$** สามารถทำได้ตรงๆด้วยการไล่ในทุกๆคู่อันดับ $(i,j)$ ได้แต่วิธีนี้มี Time-complexity $\mathcal{O}(N^2logN)$ ซึ่งวิธีนี้ไม่ทันเวลา ซึ่งวิธีการ optimize นั้นทำได้โดยการ preprocess **prefix sum** ของทุกๆ index $i$ ที่ $i \leq n$ โดย $pref(i) = pref(i-1) + a(i)$ จากการ preprocess prefix sum จะได้ว่า $S(i,j) = pref(j) - pref(i-1)$
+**วิธีในการคำนวน $F(m)$** สามารถทำได้ตรงๆด้วยการไล่ในทุกๆคู่อันดับ $(i,j)$ ได้แต่วิธีนี้มี Time-complexity $\mathcal{O}(N^2\log N)$ ซึ่งวิธีนี้ไม่ทันเวลา ซึ่งวิธีการ optimize นั้นทำได้โดยการ preprocess **prefix sum** ของทุกๆ index $i$ ที่ $i \leq n$ โดย $pref(i) = pref(i-1) + a(i)$ จากการ preprocess prefix sum จะได้ว่า $S(i,j) = pref(j) - pref(i-1)$
 ```cpp
 pref[i] = a[i] + pref[i - 1];
 ```
@@ -24,7 +24,7 @@ coord.emplace_back(0);
 sort(coord.begin(), coord.end());
 coord.resize(unique(coord.begin(), coord.end()) - coord.begin());
 ```
-การ update ค่านั้นหากนำค่าไปใส่ในช่องตรงๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity รวมเป็น $\mathcal{O}(N^2logN)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล *fenwick tree* สามารถ optimize time complexity ทั้ง update และ query เป็น $\mathcal{O}(logN)$ 
+การ update ค่านั้นหากนำค่าไปใส่ในช่องตรงๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity รวมเป็น $\mathcal{O}(N^2\log N)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล *fenwick tree* สามารถ optimize time complexity ทั้ง update และ query เป็น $\mathcal{O}(\log N)$ 
 ```cpp
 int F(int mid) {
   long long now = 0;
@@ -42,4 +42,4 @@ int F(int mid) {
   return now;
 }
 ```
-จากการใช้โครงสร้างข้อมูล fenwick tree เข้ามาช่วยสามารถลด time complexity รวมลงได้เหลือ $\mathcal{O}(Nlog^2N)$ 
+จากการใช้โครงสร้างข้อมูล fenwick tree เข้ามาช่วยสามารถลด time complexity รวมลงได้เหลือ $\mathcal{O}(N\log^2 N)$ 
