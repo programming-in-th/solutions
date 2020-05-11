@@ -23,20 +23,15 @@ __กรณีที่สอง - คู่โหนดมีเส้นเช
 ```cpp
 #include <bits/stdc++.h>
 
-#define long long long
-#define pii pair<int, int>
-#define x first
-#define y second
-
 using namespace std;
 
 const int N = 1e5 + 5;
 const int B = 1e9 + 7;
 
 int n, m;
-long ans, ppow[N], hsh[N];
-vector<pii> E;
-map<long, int> mp;
+long long ans, ppow[N], hsh[N];
+vector<pair<int, int> > E;
+map<long long, int> mp;
 
 int main() {
   ppow[0] = 1;
@@ -53,9 +48,9 @@ int main() {
   for (int i = 1; i <= n; i++)
     ++mp[hsh[i]];
   for (auto p : mp)
-    ans += 1ll * (p.y) * (p.y - 1) / 2;
-  for (pii e : E)
-    if (hsh[e.x] - ppow[e.y] == hsh[e.y] - ppow[e.x])
+    ans += 1ll * (p.second) * (p.second - 1) / 2;
+  for (pair<int, int> e : E)
+    if (hsh[e.first] - ppow[e.second] == hsh[e.second] - ppow[e.first])
       ++ans;
   printf("%lld", ans);
 
