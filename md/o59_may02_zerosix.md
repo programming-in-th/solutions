@@ -59,4 +59,4 @@ int main() {
 }
 ```
 
-Time Complexity: $\mathcal{O}(n \cdot m \cdot \log_3(100^{n + m - 1}))$
+Time Complexity: $\mathcal{O}(n \cdot m \cdot (n + m))$
