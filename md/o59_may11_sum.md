@@ -17,7 +17,7 @@ coord.emplace_back(0); // base case
 sort(coord.begin(), coord.end());
 coord.resize(unique(coord.begin(), coord.end()) - coord.begin());
 ```
-การ update ค่านั้นหากนำค่าไปใส่ในช่องตรง ๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity ต่อการดำเนินการต่อ j ใด ๆ เป็น $\mathcal{O}(N)$ และ time complexity ในการคิด $F(m)$ 1 ครั้งเป็น $\mathcal{O}(N^2)$ และเมื่อคิดการคำนวณทุก ๆ ครั้งจะมี time complexity เป็น $\mathcal{O}(N^2\log N)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล fenwick tree สามารถ optimize time complexity ทั้ง update และ query ต่อการดำเนินการ 1 ครั้งเป็น $\mathcal{O}(\log N)$ ในการคิด $F(m)$ 1 ครั้งจะลด time complexity เหลือเพียง $\mathcal{O}(N\log N)$ และเมื่อรวมการคำนวณทุกครั้งได้ time complexity เป็น $\mathcal{O}(N\log^2 N)$
+การ update ค่านั้นหากนำค่าไปใส่ในช่องตรง ๆ ด้วย time complexity $\mathcal{O}(1)$ และ query ไล่ผลรวมตั้งแต่ $1$ ถึง $j-1$ ด้วย time complexity $\mathcal{O}(N)$ จะทำให้ time complexity ต่อการดำเนินการต่อ j ใด ๆ เป็น $\mathcal{O}(N)$ และ time complexity ในการคิด $F(m)$ 1 ครั้งเป็น $\mathcal{O}(N^2)$ และเมื่อคิดการคำนวณทุก ๆ ครั้งจะมี time complexity เป็น $\mathcal{O}(N^2\log N)$ เหมือนเดิม ด้วยการใช้โครงสร้างข้อมูล fenwick tree สามารถ optimize time complexity ทั้ง update และ query ต่อการดำเนินการ 1 ครั้งเป็น $\mathcal{O}(\log N)$ ในการคิด $F(m)$ 1 ครั้งจะลด time complexity เหลือเพียง $\mathcal{O}(N\log N)$ และเมื่อรวมเวลาการคำนวณทุกครั้งได้ time complexity เป็น $\mathcal{O}(N\log^2 N)$
 ```cpp
 void update(int x, long k) {
   for (int i = x; i < N; i += i & -i)
