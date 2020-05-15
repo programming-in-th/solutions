@@ -18,8 +18,8 @@ using namespace std;
 long long n, m;
 long long pw[1000100], mn = 1e18;
 int main() {
-  scanf("%lld %lld", &n, &m);
-  for (int i = 0; i < n; i++) {
+  scanf("%lld %lld", &m, &n);
+  for (int i = 1; i <= m; i++) {
     scanf("%lld", &pw[i]);
     mn = min(mn, pw[i]);
   }
@@ -27,10 +27,10 @@ int main() {
   while (l < r) {
     long long mid = (l + r) / 2;
     long long all = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i <= m; i++) {
       all += mid / pw[i];
     }
-    if (all >= m)
+    if (all >= n)
       r = mid;
     else
       l = mid + 1;
