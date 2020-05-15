@@ -21,9 +21,9 @@ int main() {
   scanf("%lld %lld", &n, &m);
   for (int i = 0; i < n; i++) {
     scanf("%lld", &pw[i]);
-    mn = min( mn, pw[i] );
+    mn = min(mn, pw[i]);
   }
-  long long l = 1, r = mn*n;
+  long long l = 1, r = mn * n;
   while (l < r) {
     long long mid = (l + r) / 2;
     long long all = 0;
