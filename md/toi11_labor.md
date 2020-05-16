@@ -16,14 +16,13 @@
 
 using namespace std;
 long long n, m;
-long long pw[1000100], mn = 1e18;
+long long pw[1000100];
 int main() {
   scanf("%lld %lld", &m, &n);
   for (int i = 1; i <= m; i++) {
     scanf("%lld", &pw[i]);
-    mn = min(mn, pw[i]);
   }
-  long long l = 1, r = mn * n;
+  long long l = 1, r = 1000000LL * n;
   while (l < r) {
     long long mid = (l + r) / 2;
     long long all = 0;
@@ -37,5 +36,4 @@ int main() {
   }
   printf("%lld", l);
   return 0;
-}
 ```
