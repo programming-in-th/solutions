@@ -8,7 +8,7 @@
 
 วิธีในการคำนวณค่า $F(T)$ สำหรับค่า $T$ ใด ๆ นั้นสามารถทำได้โดยการไล่คิดผลรวมจำนวนสินค้าที่มากที่สุดที่กุลีสามารถขนถ่ายได้โดยใช้เวลาไม่เกิน $T$ ตั้งแต่กุลีคนที่ $1,2,3,...,M$ กล่าวคือ $F(T) = \sum \limits_{i=1}^{M} \left \lfloor{\frac{T}{t_i}}\right \rfloor$ 
 
-วิธีการดังกล่าวจะใช้ Time Complexity $\mathcal{O}(M)$ ต่อการคิด $F(T)$ 1 ครั้ง เพราะได้ไล่คิดในทุกๆ index $i$ ตั้งแต่ $i = 1,2,3,...,M$ เมื่อรวมจำนวนครั้งการคิด $F(T)$ ซึ่งคิด $\log (N \cdot \min \limits_{1 \leq i \leq M} \{ t_i \})$ ครั้งจะมี Time Complexity รวม $\mathcal{O}(M\log (N \cdot \min \limits_{1 \leq i \leq M} \{ t_i \}))$
+วิธีการดังกล่าวจะใช้ Time Complexity $\mathcal{O}(M)$ ต่อการคิด $F(T)$ 1 ครั้ง เพราะได้ไล่คิดในทุกๆ index $i$ ตั้งแต่ $i = 1,2,3,...,M$ ซึ่งถ้าคิดในกรณี Worst Case Time Complexity จะคิด $F(T)$ $\log (N \cdot maxt)$ ครั้งเมื่อ $maxt =$ ค่า $t[i]$ มากสุดที่เป็นไปได้ใน input = $10^6$ ดังนั้นจะมี Worst Case Time Complexity รวม $\mathcal{O}(M\log (N \cdot maxt))$ เมื่อ $maxt =$ ค่า $t[i]$ มากสุดที่เป็นไปได้ใน input = $10^6$ 
 
 โค้ดตัวอย่างดังนี้
 ```cpp
