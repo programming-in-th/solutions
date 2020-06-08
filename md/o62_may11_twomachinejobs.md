@@ -18,11 +18,11 @@
 
 สำหรับ subtask ที่ 1 เราสามารถตำนวณได้ตรง ๆ ใช้เวลา $\mathcal{O}(N^2)$
 
-สำหรับ subtask ที่ 2 ให้เรารับ $B_i$ ทั้งหมดมาก่อน ขั้นตอนคำนวณคำตอบให้ใช้ segment tree with lazy propagation ในการหาคำตอบ เวลาที่ใช้จะมีค่าเท่ากับ $\mathcal{O}(NlogN)$
+สำหรับ subtask ที่ 2 ให้เรารับ $B_i$ ทั้งหมดมาก่อน ขั้นตอนคำนวณคำตอบให้ใช้ segment tree with lazy propagation ในการหาคำตอบ เวลาที่ใช้จะมีค่าเท่ากับ $\mathcal{O}(N\log N)$
 
 สำหรับ subtask ที่ 3 นั้นเป็นแบบ fully dynamic นั่นคือเราจะต้องรองรับการ "split" segment tree และ "insert" node เข้าไปตรงกลาง segment tree โครงสร้างข้อมูลที่สามารถใช้แก้ปัญหานี้ได้คือ implicit cartesian tree ซึ่งสามารถ implement ได้โดย treap นั่นเอง ในแต่ละโหนดเราจะเก็บ
 - $A_i$ และ $B_i$
 - คำตอบสำหรับช่วงนี้
 - ผลรวมค่า $A_i$ สำหรับ node ที่มี key มากกว่า node นี้
 
-เวลาที่ใช้จะมีค่าเท่ากับ $\mathcal{O}(NlogN)$
+เวลาที่ใช้จะมีค่าเท่ากับ $\mathcal{O}(N\log N)$
