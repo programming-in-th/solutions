@@ -20,8 +20,8 @@
 
 ในการเก็บและอัพเดทค่า $T(u)$ ให้เราสังเกตว่าในการสร้างบ้านใหม่แต่ละครั้ง จุดยอดที่มีค่า $T$ เปลี่ยนแปลงไปจะเป็นจุดยอดบน path จากจุดยอดหมายเลข 1 ถึงจุดยอดหมายเลข $u$ เท่านั้น
 
-ปัญหานี้จึงกลายเป็นปัญหา range update บน tree ซึ่งสามารถทำได้ใน $\mathcal{O}(n\log n)$ โดย Heavy-Light Decomposition
+ปัญหานี้จึงกลายเป็นปัญหา range update บน tree ซึ่งสามารถทำได้ใน $\mathcal{O}(\log n)$ โดย Heavy-Light Decomposition
 
 เราจะตอบ `YES` ก็ต่อเมื่อ $T(1)[0] = m/k$ เสมอ
 
-ในการอัพเดทใน segment tree ใน Heavy-Light Decomposition จะใช้เวลา $\mathcal{O}(k)$ ไปด้วย ทำให้เราสามารถแก้โจทย์ข้อนี้ในเวลา $\mathcal{O}(nk)$
+ในการอัพเดทใน segment tree ใน Heavy-Light Decomposition จะใช้เวลา $\mathcal{O}(k)$ ไปด้วย ทำให้เราสามารถแก้โจทย์ข้อนี้ในเวลา $\mathcal{O}(nk\log n)$
