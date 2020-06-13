@@ -41,7 +41,7 @@ $$c' = c + \Phi(S')-\Phi(S) = N + (N-0) = 2N$$
 
 ดังนั้นเราถ้าเราให้ $\Phi(S) = n$ จะได้ว่า $\Phi(S') \leq n-((L-1)+(R-1)-1) = n-L-R+3$ นั่นคือ  $\Phi(S')-\Phi(S) \leq -L-R+3$
 
-เนื่องจาก actual cost $c$ มีค่าเท่ากับ $L+R$ amortized cost $c`$ จะมีค่าเท่ากับ
+เนื่องจาก actual cost $c$ มีค่าเท่ากับ $L+R$ amortized cost $c'$ จะมีค่าเท่ากับ
 
 $$c' = c + \Phi(S')-\Phi(S) \leq L+R + (-L-R+3) = 3$$
 
