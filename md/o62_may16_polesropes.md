@@ -33,7 +33,6 @@ actual cost $c$ มีค่าเท่ากับ $N$ เมื่อ $N$ ค
 
 $$c' = c + \Phi(S')-\Phi(S) = N + (N-0) = 2N$$
 
-<br />
 
 `update` 
 
