@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+env:
+  AWS-REGION: ap-southeast-1
+  AWS-URL: beta-programming-in-th
+
 jobs:
   deploy:
     name: Upload to Amazon S3
@@ -15,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Change relative path to absolute path
-        run: sed -i -e 's+../media/+https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/+g' *
+        run: sed -i -e 's+../media/+https://${AWS-URL}.s3-${AWS-REGION}.amazonaws.com/solutions/media/+g' *
         working-directory: ./md
 
       - name: Configure AWS credentials
@@ -23,8 +27,8 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
+          aws-region: $AWS-REGION
 
       - name: Copy files to S3 with the AWS CLI
         run: |
-          aws s3 sync . s3://beta-programming-in-th/solutions --exclude "*" --include "md/*" --include "media/*" --acl public-read
+          aws s3 sync . s3://${AWS-URL}/solutions --exclude "*" --include "md/*" --include "media/*" --acl public-read
