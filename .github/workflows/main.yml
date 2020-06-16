@@ -27,4 +27,4 @@ jobs:
 
       - name: Copy files to S3 with the AWS CLI
         run: |
-          aws s3 sync . s3://beta-programming-in-th/solutions --exclude ".git/* .github/* .gitignore README.md contributing.md LICENSE" --acl public-read
+          aws s3 sync . s3://beta-programming-in-th/solutions --exclude "*" --include "md/*" --include "media/*" --acl public-read
