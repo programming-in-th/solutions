@@ -14,7 +14,7 @@
 
 ยกตัวอย่างเช่นภาพด้านล่าง
 
-![รูปที่ 1](../media/o62_may07_marathon/articulation.png)
+![รูปที่ 1](https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/o62_may07_marathon/articulation.png)
 
 หากพิจารณาทุก *path* จาก $s$ ไปหา $t$ จะจำเป็นต้องผ่าน $p_1$ แน่ ๆ เพราะเมื่อนำ $p_1$ ออกจากกราฟจะแบ่งกราฟออกเป็นหลายส่วน และทำให้ $s$ กับ $t$ อยู่คนละส่วนกัน
 
@@ -24,7 +24,7 @@
 
 ยกตัวอย่างเช่นภาพด้านล่าง
 
-![รูปที่ 2](../media/o62_may07_marathon/st-cut.png)
+![รูปที่ 2](https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/o62_may07_marathon/st-cut.png)
 
 หากกำหนดให้ $S = \{s_1, s_2\}$ และ $T = \{t_1, t_2, t_3\}$ และ $P = \{p_1, p_2, p_3\}$ (จะเห็นได้ว่ามีสมบัติข้างต้น คือเมื่อตัด $P$ ออกจากกราฟไปแล้วทำให้ $S$ ไม่สามารถไปหา $T$ ได้เลย) แล้วจะสังเกตได้ว่า *shortest path* จาก $s \in S$ ใด ๆ ไปยัง $t \in T$ ใด ๆ จะต้องผ่านอย่างน้อยหนึ่งจุดยอดใน $P$
 
