@@ -4,11 +4,11 @@
 
 จากนั้นเราจะนิยาม $f(D, b)$ เป็นผลรวมของสี่เหลี่ยมดังรูปด้านล่าง นั่นคือ $f(D, b)$ จะมีค่าเท่ากับ ผลรวมของทุก ๆ ช่อง $(x, y)$ ที่ $x+y \geq D$ และ $y \leq b$ โดยที่ถ้า $x+y = D$ ให้หาบวกแค่ครึ่งเดียว
 
-![](https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/o62_may15_triquery/001.png)
+![](../media/o62_may15_triquery/001.png)
 
 สังเกตว่า คำตอบของคำถามใด ๆ จะสามารถคำนวณได้โดยใช้แค่ $f$ และผลรวมของตัวเลขในสี่เหลี่ยมมุมฉากด้านล่างของมัน ดังรูปด้านล่าง
 
-![](https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/o62_may15_triquery/002.png)
+![](../media/o62_may15_triquery/002.png)
 
 นั่นคือ พื้นที่สีฟ้า จะมีค่าเท่ากับ $f(D, b)-f(D,a)$ ลบด้วยพื้นที่สีเขียว
 
