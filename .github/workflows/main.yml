@@ -19,7 +19,7 @@ jobs:
           sed -i -e 's+../media/+https://beta-programming-in-th.s3-ap-southeast-1.amazonaws.com/solutions/media/+g' md/*
 
       - name: Remove unused files
-        run: rm md/&-e
+        run: rm md/*-e
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
