@@ -7,7 +7,7 @@
 	* ในทำนองเดียวกัน เส้นเชื่อมที่*ชี้ออกจาก* $a$ หรือ $b$ ทั้งหมด ให้มาชี้ออกจาก $(a,b)$ แทน
 	* กล่าวได้ว่า เราทำการผสานโหนด $a$ และ $b$ เป็นโหนดเดียวกันนั่นเอง
 
-![รูปที่1](../md/media/o62_mar_c2_blind/p001.png)  
+![รูปที่1](../media/o62_mar_c2_blind/p001.png)  
 
 จะได้ว่า โจทย์ข้อนี้ก็คือปัญหา [**Topological Sorting**](https://en.wikipedia.org/wiki/Topological_sorting#:~:text=In%20computer%20science%2C%20a%20topological,before%20v%20in%20the%20ordering.) สุดคลาสสิกนั่นเอง  
 
