@@ -1,4 +1,4 @@
-﻿## Subtask 1,2 ( R <= 7, C <= 1\,000 )
+## Subtask 1,2 ( R <= 7, C <= 1\,000 )
 บ่อยครั้งมาก ที่ **Dynamic Programming** สามารถนำมาใช้แก้โจทย์ที่ถามหาจำนวนรูปแบบที่เป็นไปได้ทั้งหมดของปัญหาบางอย่างได้อย่างมีประสิทธิภาพ  
 
 จากเงื่อนไขของโจทย์ สังเกตได้ว่าจำนวนแถวนั้นมีค่าน้อยมากๆ ( $R <= 7$ )  
@@ -70,8 +70,8 @@ void brute_force(int current_row = 0, int current_col = 0, int prev_col = 0) {
 
 $$dp[i][j] = \sum_{k=0}^{2^r-1} dp[i-1][k]*transition[k][j]$$    
 
-Time Complexity : $\mathcal{O}(3^r*2^r+C*2^{2k})$  
-Space Complexity : $\mathcal{O}(2^{2k}+C*2^k)$  
+Time Complexity : $\mathcal{O}(3^r*2^r+C*(2^r)^2)$  
+Space Complexity : $\mathcal{O}((2^r)^2+C*2^r)$  
 
 ## Subtask 3 ( R <= 7, C <= 10^9 )  
 
@@ -79,5 +79,5 @@ Space Complexity : $\mathcal{O}(2^{2k}+C*2^k)$
 
 ในการแก้ปัญหาย่อยที่ 3 เราสามารถใช้ตาราง *transition* ก่อนหน้านี้มาใช้ร่วมกับเทคนิค **Matrix Exponentiation** หรือ *เมตริกซ์ยกกำลัง* ซึ่งช่วยทำให้สามารถคำนวณคำตอบสำหรับ *test case*  ที่มีค่า $C$ เยอะมากๆ ได้อย่างมีประสิทธิภาพ  
 
-Time Complexity : $\mathcal{O}(3^r*2^r+(2^k)^3*\log{C})$  
-Space Complexity : $\mathcal{O}(2^{2k}+2^{2k}*\log{C})$  
+Time Complexity : $\mathcal{O}(3^r*2^r+(2^r)^3*\log{C})$  
+Space Complexity : $\mathcal{O}((2^r)^2+(2^r)^2*\log{C})$  
