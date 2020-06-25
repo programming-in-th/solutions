@@ -8,7 +8,7 @@
 
 สำหรับผลรวมด้านซ้าย เราจะสามารถจัดรูปเป็น $\sum \limits_{l \leq i \leq mid} min(p_i - i, 1 - l) + i$ หรือ $[\sum \limits_{l \leq i \leq mid} min(p_i - i, 1 - l)] + \frac{(l + mid)(mid - l + 1)}{2}$ ได้
 
-ในทำนองเดียวกัน ผลรวมด้านขวาก็สามารถจัดรูปเป็น $\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r) - i$ หรือ $[\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r)] + \frac{(mid + 1 + r)(r - mid)}{2}$ ได้
+ในทำนองเดียวกัน ผลรวมด้านขวาก็สามารถจัดรูปเป็น $\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r) - i$ หรือ $[\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r)] - \frac{(mid + 1 + r)(r - mid)}{2}$ ได้
 
 ดังนั้น ในแต่ลำคำถาม เราจำเป็นต้องทราบค่าของ $\sum \limits_{l \leq i \leq mid} min(p_i - i, 1 - l)$ และ $\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r)$ ซึ่งสามารถหาค่าได้ด้วยการใช้ Persistent Segment Tree ภายในเวลา $\mathcal{O}(\log n)$
 
@@ -18,6 +18,6 @@
 
 เราจะใช้วิธีเดียวกันในการหาค่าของ $\sum \limits_{mid < i \leq r} min(p_i + i, 1 + r)$ ทำให้ต้องสร้าง Segment Tree จำนวน $4n$ ต้น
 
-นำค่าทั้งสองนี้รวมกับ $\frac{(l + mid)(mid - l + 1)}{2} + \frac{(mid + 1 + r)(r - mid)}{2}$ จะได้คำตอบของคำถามนั้น
+นำค่าทั้งสองนี้รวมกับ $\frac{(l + mid)(mid - l + 1)}{2} - \frac{(mid + 1 + r)(r - mid)}{2}$ จะได้คำตอบของคำถามนั้น
 
 Time Complexity: $\mathcal{O}(n \log n)$
