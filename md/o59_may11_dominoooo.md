@@ -74,7 +74,7 @@ $$dp[i][j] = \sum_{k=0}^{2^r-1} dp[i-1][k]*transition[k][j]$$
 Time Complexity : $\mathcal{O}(3^r*2^r+C*(2^r)^2)$  
 Space Complexity : $\mathcal{O}((2^r)^2+C*2^r)$  
 
-## Subtask 3 ( R <= 7, C <= 10^9 )  
+## Subtask 3 ($R \leq 7, C \leq 10^9$)  
 
 ในขณะเดียวกัน บ่อยครั้งมากที่เราสามารถใช้ [**Matrix Exponentiation**](https://www.hackerearth.com/practice/notes/matrix-exponentiation-1/) มาพัฒนาประสิทธิภาพในการแก้ปัญหาด้วย **Dynamic Programming** ที่ตัวแปรบางตัวมีค่าสูงมากๆได้
 
