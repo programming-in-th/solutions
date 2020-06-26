@@ -20,4 +20,6 @@
 
 นำค่าทั้งสองนี้รวมกับ $\frac{(l + mid)(mid - l + 1)}{2} - \frac{(mid + 1 + r)(r - mid)}{2}$ จะได้คำตอบของคำถามนั้น
 
+สำหรับค่า $p_i$ นั้น เราสามารถหาได้ด้วยการทำ Binary Search + Rolling Hash
+
 Time Complexity: $\mathcal{O}(n \log n)$
