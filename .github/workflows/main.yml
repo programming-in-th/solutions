@@ -6,10 +6,10 @@ on:
       - master
 
 env:
-  AWS-REGION: ap-southeast-1
-  AWS-URL: beta-programming-in-th
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  DO-REGION: sgp1
+  DO-URL: proginth
+  S3_ACCESS_KEY : ${{ secrets.AWS_ACCESS_KEY_ID }}
+  S3_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   deploy:
@@ -21,16 +21,17 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Change relative path to absolute path
-        run: sed -i -e 's+../media/+https://${{ env.AWS-URL }}.s3-${{ env.AWS-REGION }}.amazonaws.com/solutions/media/+g' *
+        run: sed -i -e 's+../media/+https://proginth.sgp1.cdn.digitaloceanspaces.com/solutions/media/+g' *
         working-directory: ./md
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Set up S3cmd cli tool
+        uses: s3-actions/s3cmd@v1.2.0
         with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS-REGION }}
+          provider: digitalocean
+          region: 'sgp1'
+          access_key: ${{ secrets.S3_ACCESS_KEY }}
+          secret_key: ${{ secrets.S3_SECRET_KEY }}
 
       - name: Copy files to S3 with the AWS CLI
         run: |
-          aws s3 sync . s3://${{ env.AWS-URL }}/solutions --exclude "*" --include "md/*" --include "media/*" --acl public-read
+          s3cmd sync --recursive --acl-public . s3://proginth/solutions --exclude "*" --include "md/*" --include "media/*"
