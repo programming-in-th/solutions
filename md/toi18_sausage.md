@@ -1,4 +1,4 @@
-#### อธิบายโจทย์เพิ่มเติม
+### อธิบายโจทย์เพิ่มเติม
 
 จากโจทย์ ความอร่อยของไส้อั่วชิ้นที่ $i$ คือ $D_{i}$
 
@@ -16,7 +16,7 @@ $$Del_{now} = Del_{prev} + D_{choose}$$
 
 โดยในการกินทั้งหมดต้องการทำให้ผลรวมความอร่อยทั้งหมด**มากที่สุด**
 
-#### กลุ่มชุดสอบที่ไม่มีการตัดไส้อั่ว (12 คะแนน)
+### กลุ่มชุดสอบที่ไม่มีการตัดไส้อั่ว (12 คะแนน)
 
 เนื่องจากในชุดทดสอบนี้ไม่มีการตัดไส้อั่ว ทำให้จำเป็นต้องคิดเพียงการหา $Del_{now}$ เท่านั้น
 
@@ -40,7 +40,7 @@ Time Complexity : $O(N^{2})$
 
 สุดท้ายคำตอบจะอยู่ที่ $dp(1, N)$ เนื่องจาก $dp(l, r)$ เป็นคำตอบในช่วง $l$ ถึง $r$ เช่นกัน
 
-#### กลุ่มชุดสอบที่ $N\le1\,000$ (65 คะแนน)
+### กลุ่มชุดสอบที่ $N\le1\,000$ (65 คะแนน)
 
 ในชุดทดสอบกลุ่มนี้สามารถใช้ Matrix Chain Multiplication ในการลองไล่ตัดทุกวิธีได้
 
@@ -59,7 +59,7 @@ Time Complexity : $O(N^{3})$
 
 สุดท้ายคำตอบจะอยู่ที่ $opt(1, N)$ เนื่องจาก $opt(l, r)$ เป็นความอร่อยที่มากที่สุดเมื่อสามารถตัดกี่ครั้งก็ได้ในช่วง $l$ ถึง $r$
 
-#### ไม่มีเงื่อนไขเพิ่มเติม (100 คะแนน)
+### ไม่มีเงื่อนไขเพิ่มเติม (100 คะแนน)
 
 ในปัญหาย่อยนี้ต้อง optimize การหา $opt(l, r)$ ที่เป็นปัญหา Matrix Chain Multiplication ลงให้ใช้เวลาไม่เกิน $O(N^{2})$
 
@@ -83,27 +83,28 @@ using namespace std;
 const int MxN = 5050;
 int n, dp[MxN][MxN], opt[MxN], D[MxN];
 int main() {
-	cin.tie(nullptr)->ios::sync_with_stdio(false);
-	cin >> n;
-	for(int i=1; i<=n; ++i){
-		cin >> D[i];
-	}
-	for(int i=1; i<=n; ++i){
-		dp[i][i] = D[i];
-	}
-	for(int sz=2; sz<=n; ++sz){
-		for(int l=1; l+sz-1<=n; ++l){
-			int r = l + sz - 1;
-			dp[l][r] = abs(D[l] - D[r]) + max(dp[l + 1][r] + D[l], dp[l][r - 1] + D[r]);
-		}
-	}
-	for(int r=1; r<=n; ++r){
-		opt[r] = dp[1][r];
-		for(int l=1; l<r; ++l){
-			opt[r] = max(opt[r], opt[l] + dp[l + 1][r]);
-		}
-	}
-	cout << opt[n];
-	return 0;
+  cin.tie(nullptr)->ios::sync_with_stdio(false);
+  cin >> n;
+  for (int i = 1; i <= n; ++i) {
+    cin >> D[i];
+  }
+  for (int i = 1; i <= n; ++i) {
+    dp[i][i] = D[i];
+  }
+  for (int sz = 2; sz <= n; ++sz) {
+    for (int l = 1; l + sz - 1 <= n; ++l) {
+      int r = l + sz - 1;
+      dp[l][r] =
+          abs(D[l] - D[r]) + max(dp[l + 1][r] + D[l], dp[l][r - 1] + D[r]);
+    }
+  }
+  for (int r = 1; r <= n; ++r) {
+    opt[r] = dp[1][r];
+    for (int l = 1; l < r; ++l) {
+      opt[r] = max(opt[r], opt[l] + dp[l + 1][r]);
+    }
+  }
+  cout << opt[n];
+  return 0;
 }
 ```
