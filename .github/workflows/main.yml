@@ -9,9 +9,10 @@ env:
   AWS-URL: beta-programming-in-th
   AWS_ACCESS_KEY_ID: ${{ secrets.OLD_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.OLD_AWS_SECRET_ACCESS_KEY }}
+  BUCKET_NAME: prginth01
 
 jobs:
-  deploy1:
+  deploy:
     name: Upload to Digital Ocean S3
     runs-on: ubuntu-latest
 
@@ -27,14 +28,15 @@ jobs:
         uses: s3-actions/s3cmd@v1.2.0
         with:
           provider: digitalocean
-          region: 'sgp1'
+          region: "sgp1"
           access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Copy files to S3 with the AWS CLI
         run: |
-          s3cmd sync --recursive --acl-public --exclude "*" --include "md/*" --include "media/*" . s3://proginth/solutions/
-  deploy2:
+          s3cmd sync --recursive --acl-public --exclude "*" --include "md/*" --include "media/*" . s3://${{ env.BUCKET_NAME }}/solutions/
+
+  deploy_legacy:
     name: Upload to Amazon S3
     runs-on: ubuntu-latest
 
