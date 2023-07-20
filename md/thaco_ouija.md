@@ -58,4 +58,4 @@ $$\sum\limits_{i=0}^{2R-3}(-1)^i\binom{2R-3}{i}dp(R,R,n-i)=0$$
 ดังนั้น สิ่งที่ต้องทำในข้อนี้คือ การหา $dp(R,R,R),\dots,dp(R,R,3R−5),dp(R,R,3R−4)$ ซึ่งเช่นกันกับใน Subtask 1-4 จะใช้เวลา $O(R^3)$ และจากนั้นจึงคำนวน $dp(R,R,3R-3),dp(R,R,3R-2),\dots,dp(R,R,R+C-2)$ ด้วยการใช้ finite difference ซึ่งใช้เวลา $O(RC)$
 สำหรับการหา $\binom{2R-3}{i}$ สามารถใช้ Dynamic Programming ในการ preprocess ไว้ล่วงหน้าก่อนภายในเวลา $O(R^2)$
 
-Time Complexity: O(R3 + RC)
+Time Complexity: $O(R^3+RC)$
