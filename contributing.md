@@ -28,4 +28,4 @@
 
 ## Recommendation
 
-- Markdown files will be rendered by a function which is also provided at [programming.in.th/render](https://programming.in.th/render)
+- Markdown files will be rendered by a function that can be previewed at [programming.in.th/render](https://programming.in.th/render)
