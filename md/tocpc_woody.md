@@ -25,10 +25,15 @@ Time Complexity: $\mathcal{O}(NX)$
 ตารางขนาด $N\times X$ เป็นขนาด $N\times X\times Y$
 
 $$dp(i,x,y)$$
+
 $$=dp(i-1,x,y) \quad x<x_i,y<y_i$$
+
 $$=\min(dp(i-1,x,y),\min\limits_{1\leq j\leq x_i}\{dp(i-1,x-j,y-y_i)+c_i\}) \quad x=X$$
+
 $$=\min(dp(i-1,x,y),\min\limits_{1\leq j\leq y_i}\{dp(i-1,x-x_i,y-j)+c_i\}) \quad y=Y$$
+
 $$=\min(dp(i-1,x,y),\min\limits_{1\leq j\leq x_i}\{\min\limits_{1\leq k\leq y_i}\{dp(i-1,x-j,y-k)+c_i\}\}) \quad x=X,y=Y$$
+
 $$=\min(dp(i-1,x,y),dp(i-1,x-x_i,y-y_i)+c_i) \quad \text{other}$$
 
 เนื่องจากตารางขนาด $N\times X\times Y$ มีขนาดเกิน Memory Limit เราสามารถลดการใช้ Memory ด้วยการเก็บแค่ค่า $N$ ปัจจุบันและ
