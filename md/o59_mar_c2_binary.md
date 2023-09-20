@@ -47,11 +47,11 @@
 
 3. คำตอบคือ $H[1]$
 
-การอ่านข้อนำเข้าและเก็บ Adjacency List ใช้เวลา $O(N)$ 
+การอ่านข้อนำเข้าและเก็บ Adjacency List ใช้เวลา $\mathcal{O}(N)$ 
 
-การคำนวณ $H$ ใช้เวลา $O(C_x \log C_x)$ สำหรับทุก $x$ เมื่อ $C_x$ คือจำนวนลูกของ $x$ เพราะเกิดการ push และ pop จาก priority queue $O(C_x)$ รอบ 
+การคำนวณ $H$ ใช้เวลา $\mathcal{O}(C_x \log C_x)$ สำหรับทุก $x$ เมื่อ $C_x$ คือจำนวนลูกของ $x$ เพราะเกิดการ push และ pop จาก priority queue $\mathcal{O}(C_x)$ รอบ 
 
-ทั้งหมดจึงใช้เวลา $O(N) + \Sigma_{x=1}^{N} O(C_x \log C_x) = O(N \log N)$
+ทั้งหมดจึงใช้เวลา $\mathcal{O}(N) + \Sigma_{x=1}^{N} \mathcal{O}(C_x \log C_x) = \mathcal{O}(N \log N)$
 
 #### ตัวอย่างโค้ดสำหรับการคำนวณ $H$ ในขั้นตอนที่ 2
 
