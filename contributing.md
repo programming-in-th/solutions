@@ -26,6 +26,6 @@
 - Python: TBD
 - Go: gofmt
 
-## Recommendation
+## Markdown Preview
 
-- Markdown files will be rendered by a function that can be previewed at [programming.in.th/render](https://programming.in.th/render)
+- Markdown files will be rendered by a function that can be previewed at [programming.in.th/render](https://programming.in.th/render), please preview your markdown file before submitting pull request.
